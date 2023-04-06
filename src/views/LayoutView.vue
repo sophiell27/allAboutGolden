@@ -5,6 +5,19 @@ export default {
 
     };
   },
+  methods: {
+    toggleBurger() {
+      const nav = this.$refs.mainOverlay;
+      nav.classList.toggle('hidden');
+    },
+  },
+  mounted() {
+    window.addEventListener('click', (e) => {
+      if (e.target === this.$refs.mainOverlay) {
+        this.toggleBurger();
+      }
+    });
+  },
 };
 </script>
 <template>
@@ -14,18 +27,34 @@ export default {
       chevron_right
     </span>
   </a>
-  <header class="px-3 mb-6">
+  <header class="relative px-3 mb-6">
     <div class="container flex items-center justify-between">
       <div class="flex items-center">
-        <button class="mr-4">
-          <span class="material-symbols-outlined">
+        <!-- burger -->
+        <button type="button" class="material-symbols-outlined mr-4" @click="toggleBurger">
             menu
-          </span>
         </button>
-        <h1 class=" ">
+        <h1 class="">
           <a href="#"
             class="block w-[130px] h-12 whitespace-nowrap overflow-hidden indent-[101%] bg-logo bg-no-repeat bg-contain my-3">遍地黃金</a>
         </h1>
+        <!-- nav  -->
+        <div class="hidden absolute -top-7 bottom-0 left-0 right-0 z-20 bg-dark/10 w-full h-screen " ref="mainOverlay">
+          <nav class="top-0 left-0 z-10 text-lg font-bold text-fog-500 bg-white pl-4 pr-6 pt-3 w-3/4 h-screen">
+          <div class="flex justify-between items-center mb-2">
+            <img src="../assets/images/layout/Logo.svg" alt="logo" class="h-12 w-[130px]">
+            <button type="button" class="material-symbols-outlined" @click="toggleBurger">
+              close
+            </button>
+          </div>
+          <ul class="flex flex-col items-center">
+            <li><a href="" class="block py-4">產品一覽</a></li>
+            <li><a href="" class="block py-4">黃金專欄</a></li>
+            <li><a href="" class="block py-4">查詢訂單</a></li>
+            <li><a href="" class="block py-4">登入 / 註冊</a></li>
+          </ul>
+        </nav>
+        </div>
       </div>
       <ul class="flex items-center relative">
         <li>
@@ -47,9 +76,10 @@ export default {
   </header>
   <RouterView />
   <footer class="bg-fog-200">
-     <!-- join member cta -->
+    <!-- join member cta -->
     <div class="bg-[url('../assets/images/layout/footer-CTA-sm.jpg')] px-3 py-6">
-      <h4 class="text-lg font-bold text-center text-white mb-6">超過<span class="px-1 text-h2 text-primary ">90%</span>的顧客都選擇我們
+      <h4 class="text-lg font-bold text-center text-white mb-6">超過<span
+          class="px-1 text-h2 text-primary ">90%</span>的顧客都選擇我們
         <br class="mb-1">
         您也值得擁有最優質的購物體驗！
       </h4>
