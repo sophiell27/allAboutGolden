@@ -6,8 +6,8 @@ export default {
 };
 </script>
 <template>
-  <ul class="flex flex-col mb-4">
-    <li class="mb-6"><a href="" class="flex flex-col justify-between">
+  <ul class="grid grid-cols-6 gap-y-4 mb-4">
+    <li class="col-span-6"><a href="" class="flex flex-col justify-between">
         <div class="mb-4">
           <img src="" alt="" class="w-full h-[360px] object-cover mb-2">
           <h4 class="text-lg text-center mb-1">title</h4>

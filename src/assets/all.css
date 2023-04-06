@@ -40,9 +40,11 @@
   }
   .titleDash{
     position: relative;
+    z-index: -1;
   }
-  .titleDash:after {
+  .titleDash::after {
     position: absolute;
+    z-index: -1;
     content: "";
     bottom: 0;
     left: 0;
