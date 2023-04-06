@@ -1,0 +1,74 @@
+<script>
+export default {
+  data() {
+    return {
+
+    };
+  },
+};
+</script>
+<template>
+  <a href="#" class="text-sm bg-primary text-dark py-1 flex items-center justify-center">
+    訂單金額滿 <span class="font-inter font-extrabold">NT$ 900</span>，即可享有免運服務
+    <span class="material-symbols-outlined text-xs">
+      chevron_right
+    </span>
+  </a>
+  <header class="px-3 mb-6">
+    <div class="container flex items-center justify-between">
+      <div class="flex items-center">
+        <button class="mr-4">
+          <span class="material-symbols-outlined">
+            menu
+          </span>
+        </button>
+        <h1 class=" ">
+          <a href="#"
+            class="block w-[130px] h-12 whitespace-nowrap overflow-hidden indent-[101%] bg-logo bg-no-repeat bg-contain my-3">遍地黃金</a>
+        </h1>
+      </div>
+      <ul class="flex items-center relative">
+        <li>
+          <button type="button" class="material-symbols-outlined py-5 pr-4">
+            search
+          </button>
+        </li>
+        <li>
+          <button type="button" class="material-symbols-outlined py-5 pr-4">
+            shopping_cart
+          </button>
+          <p
+            class="absolute top-3 right-0 w-6 h-6 rounded-full bg-dark text-white font-inter text-sm  flex items-center justify-center">
+            0
+          </p>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <RouterView />
+  <footer class="bg-fog-200">
+     <!-- join member cta -->
+    <div class="bg-[url('../assets/images/layout/footer-CTA-sm.jpg')] px-3 py-6">
+      <h4 class="text-lg font-bold text-center text-white mb-6">超過<span class="px-1 text-h2 text-primary ">90%</span>的顧客都選擇我們
+        <br class="mb-1">
+        您也值得擁有最優質的購物體驗！
+      </h4>
+      <button type="button" class="pillBtn flex mx-auto">立即加入會員
+        <span class="material-symbols-outlined">
+          chevron_right
+        </span></button>
+    </div>
+    <div class="container pt-5 pb-4">
+      <ul class="text-center text-h6">
+        <li><a href="" class="block py-3">關於我們</a></li>
+        <li><a href="" class="block py-3">聯絡我們</a></li>
+        <li><a href="" class="block py-3">運費 / 退貨說明</a></li>
+        <li><a href="" class="block py-3">私隱條款</a></li>
+      </ul>
+      <p class="text-sm text-center text-fog-500 mt-3 ">此網站僅做為前端 Side Project 作品練習，
+        <br>
+        不做商業用途，謝謝。
+      </p>
+    </div>
+  </footer>
+</template>
