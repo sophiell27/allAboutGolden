@@ -1,12 +1,18 @@
 <script>
+import frontStore from '@/stores/frontStore';
+import { mapActions, mapState } from 'pinia';
 import { gsap, Back, Bounce } from 'gsap';
-import RelateProductsComponent from '../../components/RelateProductsComponent.vue';
+import ProductListComponent from '@/components/ProductListComponent.vue';
 
 export default {
   components: {
-    RelateProductsComponent,
+    ProductListComponent,
+  },
+  computed: {
+    ...mapState(frontStore, ['getNewProducts', 'allProducts']),
   },
   methods: {
+    ...mapActions(frontStore, ['getProducts']),
     dogAnimate() {
       const tl = gsap.timeline({
         repeat: -1,
@@ -33,6 +39,7 @@ export default {
     },
   },
   mounted() {
+    this.getProducts();
     this.dogAnimate();
   },
 };
@@ -110,7 +117,7 @@ export default {
       <!-- 最新上架 -->
       <section class="mb-6">
         <h2 class="titleDash text-h4 text-center text-dark pb-5 mb-4">最新上架</h2>
-        <RelateProductsComponent></RelateProductsComponent>
+        <ProductListComponent :products="getNewProducts"></ProductListComponent>
       </section>
     </div>
     <img src="../../assets/images/home/cuddleImg-sm.svg" alt="cuddle image" class="w-full mb-6">

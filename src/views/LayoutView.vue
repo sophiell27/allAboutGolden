@@ -1,9 +1,13 @@
 <script>
+import CategoryMenuCompoent from '@/components/CategoryMenuCompoent.vue';
+
 export default {
   data() {
     return {
-
     };
+  },
+  components: {
+    CategoryMenuCompoent,
   },
   methods: {
     toggleBurger() {
@@ -53,7 +57,8 @@ export default {
           </h1>
           <!-- nav  -->
           <div class="hidden absolute top-0 bottom-0 left-0 right-0 z-20 bg-dark/10 w-full h-screen " ref="mainOverlay">
-            <nav class="top-7 left-0 text-lg font-bold text-fog-500 bg-white pl-4 pr-6 pt-3 w-3/4 h-screen" id="nav" ref="nav" >
+            <nav class="top-7 left-0 text-lg font-bold text-fog-500 bg-white pl-4 pr-6 pt-3 w-3/4 h-screen" id="nav"
+              ref="nav">
               <div class="flex justify-between items-center mb-2">
                 <img src="../assets/images/layout/Logo.svg" alt="logo" class="h-12 w-[130px]">
                 <button type="button" class="material-symbols-outlined" @click="toggleBurger">
@@ -61,10 +66,15 @@ export default {
                 </button>
               </div>
               <ul class="flex flex-col items-center">
-                <li><RouterLink to="/products" class="block py-4 hover:opacity-70" @click="toggleBurger">產品一覽</RouterLink></li>
-                <li><a href="" class="block py-4 hover:opacity-70" @click.prevent="toggleBurger">黃金專欄</a></li>
-                <li><a href="" class="block py-4 hover:opacity-70" @click.prevent="toggleBurger">查詢訂單</a></li>
-                <li><a href="" class="block py-4 hover:opacity-70" @click.prevent="toggleBurger">登入 / 註冊</a></li>
+                <li class="group hover:opacity-70">
+                  <RouterLink to="/products" class="block py-4" @click="toggleBurger">產品一覽</RouterLink>
+                  <div class="hidden group-hover:block">
+                    <CategoryMenuCompoent></CategoryMenuCompoent>
+                  </div>
+                </li>
+                <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">黃金專欄</a></li>
+                <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">查詢訂單</a></li>
+                <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">登入 / 註冊</a></li>
               </ul>
             </nav>
           </div>
@@ -117,5 +127,4 @@ export default {
         不做商業用途，謝謝。
       </p>
     </div>
-  </footer>
-</template>
+  </footer></template>
