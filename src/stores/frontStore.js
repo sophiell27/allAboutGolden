@@ -15,19 +15,33 @@ export default defineStore('frontStore', {
     ],
     currentCategory: '',
     allProducts: [],
+    filteredProducts: [],
   }),
   getters: {
     getNewProducts: ({ allProducts }) => allProducts.slice(-3),
   },
   actions: {
-    async getProducts() {
+    async getProducts(category = '') {
       const url = `${VITE_API}api/${VITE_PATH}/products/all`;
       await axios.get(url).then((res) => {
-        this.allProducts = res.data.products;
+        const { products } = res.data;
+        if (category) {
+          this.currentCategory = category;
+          this.filteredProducts = products.filter((item) => item.category === category);
+        } else {
+          this.currentCategory = '全部商品';
+          this.allProducts = products;
+        }
       });
     },
     getCatergory(category = '全部商品') {
       this.currentCategory = category;
+    },
+    async getFilterProducts(category) {
+      await this.getProducts().then((res) => {
+        const { products } = res.data;
+        this.filteredProducts = products.filter((item) => item.category === category);
+      });
     },
   },
 });

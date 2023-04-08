@@ -69,7 +69,7 @@ export default {
                 <li class="group hover:opacity-70">
                   <RouterLink to="/products" class="block py-4" @click="toggleBurger">產品一覽</RouterLink>
                   <div class="hidden group-hover:block">
-                    <CategoryMenuCompoent></CategoryMenuCompoent>
+                    <CategoryMenuCompoent @toggle-menu="toggleBurger"></CategoryMenuCompoent>
                   </div>
                 </li>
                 <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">黃金專欄</a></li>

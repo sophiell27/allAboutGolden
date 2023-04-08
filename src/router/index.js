@@ -12,6 +12,16 @@ const routes = [
       {
         path: 'products',
         component: () => import('../views/front/ProductsView.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('../views/front/ProductsDisplayView.vue'),
+          },
+          {
+            path: 'category/:category',
+            component: () => import('../views/front/ProductsDisplayView.vue'),
+          },
+        ],
       },
     ],
   },
