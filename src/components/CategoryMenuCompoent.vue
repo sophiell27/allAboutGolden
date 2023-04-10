@@ -10,12 +10,6 @@ export default {
   computed: {
     ...mapState(frontStore, ['categories', 'currentCategory']),
   },
-  methods: {
-    // toggleCategoryMenu() {
-    //   const el = this.$refs.catergoryOveray;
-    //   el.classList.toggle('hidden');
-    // },
-  },
 };
 </script>
 <template>

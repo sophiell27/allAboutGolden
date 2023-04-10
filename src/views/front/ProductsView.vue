@@ -40,6 +40,7 @@ export default {
   },
 };
 </script>
+
 <template>
   <main class="relative">
     <!-- fixed bottom-0 -->
