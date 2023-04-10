@@ -6,6 +6,7 @@ import ProductListComponent from '@/components/ProductListComponent.vue';
 export default {
   data() {
     return {
+      loginStatus: false,
     };
   },
   components: {

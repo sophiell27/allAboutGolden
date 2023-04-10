@@ -16,6 +16,8 @@ export default defineStore('frontStore', {
     currentCategory: '',
     allProducts: [],
     filteredProducts: [],
+    loginStatus: false,
+    localCart: [],
   }),
   getters: {
     getNewProducts: ({ allProducts }) => allProducts.slice(-3),
@@ -27,7 +29,12 @@ export default defineStore('frontStore', {
         const { products } = res.data;
         if (category) {
           this.currentCategory = category;
-          this.filteredProducts = products.filter((item) => item.category === category);
+          this.filteredProducts = products.filter((item) => {
+            if (item.category === category) {
+              return item;
+            }
+            return item;
+          });
         } else {
           this.currentCategory = '全部商品';
           this.allProducts = products;
@@ -36,12 +43,6 @@ export default defineStore('frontStore', {
     },
     getCatergory(category = '全部商品') {
       this.currentCategory = category;
-    },
-    async getFilterProducts(category) {
-      await this.getProducts().then((res) => {
-        const { products } = res.data;
-        this.filteredProducts = products.filter((item) => item.category === category);
-      });
     },
   },
 });

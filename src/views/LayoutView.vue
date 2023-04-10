@@ -1,5 +1,7 @@
 <script>
 import CategoryMenuCompoent from '@/components/CategoryMenuCompoent.vue';
+// import { mapState } from 'pinia';
+// import frontStore from '@/stores/frontStore';
 
 export default {
   data() {
@@ -22,7 +24,7 @@ export default {
     scrollHeader() {
       const { header, frontTop } = this.$refs;
       const method = (window.scrollY > 80) ? 'add' : 'remove';
-      header.classList[method]('-mt-6');
+      header?.classList[method]('-mt-6');
       frontTop.classList[method]('bg-fog-100');
     },
   },
@@ -60,7 +62,7 @@ export default {
             <nav class="top-7 left-0 text-lg font-bold text-fog-500 bg-white pl-4 pr-6 pt-3 w-3/4 h-screen" id="nav"
               ref="nav">
               <div class="flex justify-between items-center mb-2">
-                <img src="../assets/images/layout/Logo.svg" alt="logo" class="h-12 w-[130px]">
+                <img src="@/assets/images/layout/Logo.svg" alt="logo" class="h-12 w-[130px]">
                 <button type="button" class="material-symbols-outlined" @click="toggleBurger">
                   close
                 </button>
@@ -104,7 +106,7 @@ export default {
   </div>
   <footer class="bg-fog-200">
     <!-- join member cta -->
-    <div class="bg-[url('../assets/images/layout/footer-CTA-sm.jpg')] px-3 py-6">
+    <div class="bg-[url('@/assets/images/layout/footer-CTA-sm.jpg')] px-3 py-6">
       <h4 class="text-lg font-bold text-center text-white mb-6">超過<span
           class="px-1 text-h2 text-primary ">90%</span>的顧客都選擇我們
         <br class="mb-1">
