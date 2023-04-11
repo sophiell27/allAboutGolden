@@ -15,10 +15,10 @@ export default {
     CategoryMenuCompoent,
   },
   computed: {
-    ...mapState(frontStore, ['allProducts']),
+    ...mapState(frontStore, ['allProducts', 'loginStatus']),
   },
   methods: {
-    ...mapActions(frontStore, ['getProducts']),
+    ...mapActions(frontStore, ['getProducts', 'logout']),
     toggleBurger() {
       const el = this.$refs.mainOverlay;
       el.classList.toggle('hidden');
@@ -97,7 +97,9 @@ export default {
                 </li>
                 <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">黃金專欄</a></li>
                 <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">查詢訂單</a></li>
-                <li class="block py-4 hover:opacity-70"><a href="" @click.prevent="toggleBurger">登入 / 註冊</a></li>
+                <li class="block py-4 hover:opacity-70"><RouterLink to="/login" @click.prevent="toggleBurger" v-if="!loginStatus">登入 / 註冊</RouterLink>
+                  <RouterLink to="/login" @click.prevent="toggleBurger" @click="logout" v-else>登出</RouterLink>
+                </li>
               </ul>
             </nav>
           </div>
@@ -129,8 +131,8 @@ export default {
               shopping_cart
             </button>
             <p
-              class="absolute top-3 right-0 w-6 h-6 rounded-full bg-dark text-white font-inter text-sm  flex items-center justify-center">
-              0
+              class="absolute top-3 right-0 w-6 h-6 rounded-full bg-dark text-white font-inter text-sm  flex items-center justify-center" v-if="loginStatus">
+              {{ 0 }}
             </p>
           </li>
         </ul>

@@ -27,6 +27,14 @@ const routes = [
         path: 'products/category/:category/product/:productid',
         component: () => import('@/views/front/ProductDetailView.vue'),
       },
+      {
+        path: '/login',
+        component: () => import('@/views/front/CustomerLogin.vue'),
+      },
+      {
+        path: '/register',
+        component: () => import('@/views/front/CustomerRegister.vue'),
+      },
     ],
   },
 ];
