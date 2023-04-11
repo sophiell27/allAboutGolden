@@ -21,6 +21,7 @@ export default defineStore('frontStore', {
   }),
   getters: {
     getNewProducts: ({ allProducts }) => allProducts.slice(-3),
+    getFilterCategoryProducts: ({ filteredProducts }) => filteredProducts.slice(-3),
   },
   actions: {
     async getProducts(category = '') {
@@ -29,20 +30,21 @@ export default defineStore('frontStore', {
         const { products } = res.data;
         if (category) {
           this.currentCategory = category;
-          this.filteredProducts = products.filter((item) => {
-            if (item.category === category) {
-              return item;
-            }
-            return item;
-          });
+          const newProducts = products.filter(
+            (item) => item.category === category,
+          );
+          this.filteredProducts = newProducts;
         } else {
           this.currentCategory = '全部商品';
           this.allProducts = products;
         }
       });
     },
-    getCatergory(category = '全部商品') {
-      this.currentCategory = category;
+    // getCatergory(category = '全部商品') {
+    //   this.currentCategory = category;
+    // },
+    addCart(productId) {
+      return productId;
     },
   },
 });

@@ -1,17 +1,24 @@
 <script>
 import CategoryMenuCompoent from '@/components/CategoryMenuCompoent.vue';
-// import { mapState } from 'pinia';
-// import frontStore from '@/stores/frontStore';
+import frontStore from '@/stores/frontStore';
+import { mapActions, mapState } from 'pinia';
+import _ from 'lodash';
 
 export default {
   data() {
     return {
+      searchValue: '',
+      filteredValue: [],
     };
   },
   components: {
     CategoryMenuCompoent,
   },
+  computed: {
+    ...mapState(frontStore, ['allProducts']),
+  },
   methods: {
+    ...mapActions(frontStore, ['getProducts']),
     toggleBurger() {
       const el = this.$refs.mainOverlay;
       el.classList.toggle('hidden');
@@ -22,11 +29,25 @@ export default {
       }
     },
     scrollHeader() {
-      const { header, frontTop } = this.$refs;
+      const { topReminder, frontTop } = this.$refs;
       const method = (window.scrollY > 80) ? 'add' : 'remove';
-      header?.classList[method]('-mt-6');
-      frontTop.classList[method]('bg-fog-100');
+      topReminder?.classList[method]('hidden');
+      // header?.classList[method]('-mt-5');
+      frontTop.classList[method]('bg-primary', 'text-dark');
     },
+    toggleSearchBox() {
+      const { searchBox } = this.$refs;
+      searchBox.classList.toggle('hidden');
+      this.searchValue = '';
+      this.filteredValue = '';
+    },
+    searchFilter: _.debounce(function search() {
+      const value = this.searchValue;
+      (async () => {
+        await this.getProducts();
+      })();
+      this.filteredValue = this.allProducts.filter((item) => item.title.includes(value));
+    }, 500),
   },
   mounted() {
     window.addEventListener('click', this.clickMainOverlay);
@@ -40,7 +61,7 @@ export default {
 </script>
 <template>
   <div class="fixed z-50 top-0 left-0 right-0  mb-6" ref="frontTop">
-    <a href="#" class="z-50 w-full text-sm bg-primary text-dark py-1 flex items-center justify-center">
+    <a href="#" class="z-50 w-full text-sm bg-primary text-dark py-1 flex items-center justify-center" ref="topReminder">
       訂單金額滿 <span class="font-inter font-extrabold">NT$ 900</span>，即可享有免運服務
       <span class="material-symbols-outlined text-xs">
         chevron_right
@@ -81,13 +102,29 @@ export default {
             </nav>
           </div>
         </div>
-        <ul class="flex items-center relative">
-          <li>
-            <button type="button" class="material-symbols-outlined py-5 pr-4">
+        <ul class="flex items-center">
+          <li class="relative">
+            <button type="button" class="material-symbols-outlined py-5 pr-4" @click="toggleSearchBox" ref="searchButton">
               search
             </button>
+            <div class="absolute top-[50px] right-0  hidden  bg-white p-6 "
+              ref="searchBox">
+                <input type="text"
+                  class=" border-0 bg-transparent text-fog-400 bg-fog-100 placeholder:text-secondary  focus:border-0  focus:outline-fog-300/50 p-1 mb-1"
+                  placeholder="想找什麼？" v-model="searchValue" @keyup="searchFilter">
+              <template v-if="filteredValue.length">
+                <!-- path: "/products/category/:category/product/:productid", -->
+                <ul >
+                  <li v-for="value in filteredValue" :key="value.id">
+                    <RouterLink :to="`/products/category/${value.category}/product/${value.id}`"
+                      class="block p-1 mb-1 text-secondary hover:opacity-70 underline" @click="toggleSearchBox">{{ value.title }}
+                  </RouterLink>
+                  </li>
+                </ul>
+              </template>
+            </div>
           </li>
-          <li>
+          <li class="relative">
             <button type="button" class="material-symbols-outlined py-5 pr-4">
               shopping_cart
             </button>
@@ -124,9 +161,8 @@ export default {
         <li><a href="" class="block py-3">運費 / 退貨說明</a></li>
         <li><a href="" class="block py-3">私隱條款</a></li>
       </ul>
-      <p class="text-sm text-center text-fog-500 mt-3 ">此網站僅做為前端 Side Project 作品練習，
-        <br>
-        不做商業用途，謝謝。
-      </p>
+      <small class="text-center text-fog-500 mt-3 ">此網站僅做為前端 Side Project 作品練習，不做商業用途，謝謝。
+      </small>
     </div>
-  </footer></template>
+  </footer>
+</template>

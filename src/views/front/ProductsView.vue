@@ -1,26 +1,17 @@
 <script>
 import frontStore from '@/stores/frontStore';
 import { mapState, mapActions } from 'pinia';
-import { RouterLink } from 'vue-router';
 
 export default {
   data() {
     return {
     };
   },
-  components: {
-    RouterLink,
-  },
   computed: {
     ...mapState(frontStore, ['categories', 'currentCategory']),
   },
-  watch: {
-    $route(n) {
-      this.getProducts(n.params.category);
-    },
-  },
   methods: {
-    ...mapActions(frontStore, ['getProducts', 'getCatergory']),
+    ...mapActions(frontStore, ['getProducts']),
     toggleCategoryMenu() {
       const el = this.$refs.catergoryOveray;
       el.classList.toggle('hidden');
@@ -35,8 +26,6 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.scrollCategoryMenu);
-    this.getProducts(this.$route.params.category);
-    this.getCatergory();
   },
 };
 </script>
@@ -45,7 +34,7 @@ export default {
   <main class="relative">
     <!-- fixed bottom-0 -->
     <button type="button"
-      class="  w-full text-center py-1 hover:bg-primary hover:text-dark flex items-center justify-center"
+      class=" w-full text-center py-1 hover:bg-primary hover:text-dark flex items-center justify-center"
       ref="categoryBtn" @click="toggleCategoryMenu"> <span>
         {{ currentCategory }} <span class="material-symbols-outlined text-sm ml-1 "> expand_more</span>
         <!-- expand_less  -->
@@ -64,6 +53,6 @@ export default {
         </li>
       </ul>
     </nav>
-    <RouterView></RouterView>
+    <RouterView />
   </main>
 </template>
